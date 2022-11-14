@@ -1,28 +1,40 @@
-const game = ()=>{
-    ingresarNumero().then((resp)=>{
+const game = async ()=>{
+    try{
+        const resp = await ingresarNumero()
         alert(`La pc saco el número: ${resp.pcNumber} tu sacaste: ${resp.playerNumber} por lo tanto tus puntos son: ${resp.puntos}`)
-        seguirJugando().then((resp)=>{
-            if(resp){
-                game()
-            }
-            else{
-                alert('GRACIAS POR JUGAR')
-                return 0
-            }
-        })
-    }).catch(err=>{
+    }catch(err){
         alert(err)
-        seguirJugando().then((resp)=>{
-            if(resp){
-                game()
-            }
-            else{
-                alert('GRACIAS POR JUGAR')
-                return 0
-            }
-        })
-    })
-
+    }
+    const seguir = await seguirJugando()
+    if(seguir){
+        game()
+    }
+    else{
+        alert('GRACIAS POR JUGAR')
+        return 0    
+    }
+    // ingresarNumero().then((resp)=>{
+    //     seguirJugando().then((resp)=>{
+    //         if(resp){
+    //             game()
+    //         }
+    //         else{
+    //             alert('GRACIAS POR JUGAR')
+    //             return 0
+    //         }
+    //     })
+    // }).catch(err=>{
+    //     alert(err)
+    //     seguirJugando().then((resp)=>{
+    //         if(resp){
+    //             game()
+    //         }
+    //         else{
+    //             alert('GRACIAS POR JUGAR')
+    //             return 0
+    //         }
+    //     })
+    // })
 }
 const seguirJugando = ()=>{
     return new Promise((resolve,reject)=>{
